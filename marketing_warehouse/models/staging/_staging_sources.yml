@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw_sources
+    database: marketing-warehouse-497216
+    schema: raw
+    tables:
+      - name: meta_ads_raw
+      - name: google_ads_raw
+      - name: ga4_raw
+      - name: gsc_raw
+      - name: brevo_raw
+      - name: posthog_raw

@@ -1,0 +1,11 @@
+cat > .gitignore << 'EOF'
+.env
+dbt-env/
+.venv/
+__pycache__/
+*.pyc
+target/
+logs/
+dbt_packages/
+gcloud_credentials.json
+EOF

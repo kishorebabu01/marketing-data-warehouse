@@ -1,0 +1,79 @@
+version: 2
+
+models:
+  - name: mart_acquisition
+    description: "Daily acquisition metrics by channel — CAC, ROAS, CTR, conversion rate"
+    columns:
+      - name: date
+        description: "The date of the metrics"
+        tests:
+          - not_null
+      - name: channel
+        description: "Marketing channel (meta or google)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['meta', 'google']
+      - name: total_spend
+        description: "Total ad spend in EUR"
+        tests:
+          - not_null
+      - name: cac
+        description: "Customer Acquisition Cost — spend divided by conversions"
+        tests:
+          - not_null
+
+  - name: mart_activation
+    description: "Daily activation metrics by channel from PostHog events"
+    columns:
+      - name: date
+        tests:
+          - not_null
+      - name: channel
+        tests:
+          - not_null
+      - name: total_signups
+        tests:
+          - not_null
+      - name: activation_rate
+        description: "Activations divided by signups — must be between 0 and 1"
+        tests:
+          - not_null
+
+  - name: mart_retention
+    description: "Cohort retention matrix — tracks users returning after N days"
+    columns:
+      - name: cohort_date
+        tests:
+          - not_null
+      - name: cohort_size
+        tests:
+          - not_null
+      - name: retention_rate
+        description: "Active users on day N divided by cohort size"
+        tests:
+          - not_null
+
+  - name: mart_revenue
+    description: "Daily revenue metrics — MRR, LTV, ROAS, CAC payback period"
+    columns:
+      - name: date
+        tests:
+          - not_null
+      - name: channel
+        tests:
+          - not_null
+      - name: roas
+        description: "Return on Ad Spend — revenue divided by spend"
+        tests:
+          - not_null
+
+  - name: mart_referral
+    description: "Daily referral and organic growth metrics"
+    columns:
+      - name: date
+        tests:
+          - not_null
+      - name: organic_sessions
+        tests:
+          - not_null
