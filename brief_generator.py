@@ -303,7 +303,7 @@ if __name__ == "__main__":
     post_to_slack(brief, this_week)
 
     # Step 5: Save to Supabase (disabled in CI — runs locally only)
-    # save_to_supabase(brief, this_week, deltas)
+    # save_to_supabase(brief, this_week , deltas)
     print("⚠️  Supabase save skipped in CI environment")
 
     print()
