@@ -5,7 +5,7 @@
 > transforms 40+ metrics, and delivers weekly AI-generated CMO briefs to Slack.
 
 ## Live Dashboard
-[View Live Looker Studio Dashboard]:
+[View Live Looker Studio Dashboard]
 https://datastudio.google.com/reporting/2f207167-e16f-46a6-9da4-d277b3e5ebee
 
 ## Architecture
