@@ -1,0 +1,55 @@
+name: Daily dbt Run
+
+on:
+  schedule:
+    # Every day at 3am UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  dbt_run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dbt
+        run: |
+          pip install dbt-bigquery
+
+      - name: Create credentials file
+        run: |
+          echo '${{ secrets.GCLOUD_CREDENTIALS }}' > /tmp/gcloud_credentials.json
+
+      - name: Create dbt profiles
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml << 'PROFILE'
+          marketing_warehouse:
+            outputs:
+              dev:
+                type: bigquery
+                method: service-account
+                project: marketing-warehouse-497216
+                dataset: marketing_warehouse
+                location: US
+                threads: 4
+                keyfile: /tmp/gcloud_credentials.json
+            target: dev
+          PROFILE
+
+      - name: Run dbt models
+        run: |
+          cd marketing_warehouse
+          dbt run
+
+      - name: Run dbt tests
+        run: |
+          cd marketing_warehouse
+          dbt test
