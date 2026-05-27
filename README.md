@@ -76,7 +76,7 @@ Every Monday at 9am UTC, GitHub Actions:
 5. Posts to Slack #growth-briefs automatically
 
 ## Setup
-\```bash
+\ bash
 # Install dependencies
 pip install dbt-bigquery google-cloud-bigquery groq python-dotenv
 
@@ -89,7 +89,7 @@ dbt test
 
 # Generate AI brief manually
 python brief_generator.py
-\```
+\
 
 ## Portfolio Context
 Built as Project 4 of 10 in a growth marketing portfolio.
