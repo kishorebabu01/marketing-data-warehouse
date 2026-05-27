@@ -224,47 +224,7 @@ def post_to_slack(brief, this_week):
         print(f"❌ Slack post failed: {response.status_code}")
 
 
-def save_to_supabase(brief, this_week, deltas):
-    """
-    Saves the brief to Supabase for historical record.
-    """
-    if not SUPABASE_URL or not SUPABASE_KEY:
-        print("No Supabase credentials — skipping save")
-        return
 
-    try:
-        headers = {
-            "apikey":        SUPABASE_KEY.strip(),
-            "Authorization": f"Bearer {SUPABASE_KEY.strip()}",
-            "Content-Type":  "application/json"
-        }
-
-        data = {
-            "week_start":       this_week["week_start"],
-            "week_end":         this_week["week_end"],
-            "brief_text":       brief,
-            "avg_cac":          this_week["avg_cac"],
-            "avg_roas":         this_week["avg_roas"],
-            "cac_change_pct":   deltas["cac_change"],
-            "roas_change_pct":  deltas["roas_change"],
-            "created_at":       datetime.utcnow().isoformat()
-        }
-
-        response = requests.post(
-            f"{SUPABASE_URL.strip()}/rest/v1/brief_history",
-            headers=headers,
-            json=data
-        )
-
-        if response.status_code in [200, 201]:
-            print("✅ Brief saved to Supabase")
-        else:
-            print(f"⚠️ Supabase save failed: {response.status_code} — skipping")
-
-    except Exception as e:
-        print(f"⚠️ Supabase error: {e} — skipping")
-
-# ── MAIN ────────────────────────────────────────────────────
 if __name__ == "__main__":
     print("🚀 Starting weekly brief generation...")
     print()
