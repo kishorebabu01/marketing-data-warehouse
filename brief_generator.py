@@ -217,7 +217,7 @@ def post_to_slack(brief, this_week):
         ]
     }
 
-    response = requests.post(SLACK_WEBHOOK, json=message)
+    response = requests.post(SLACK_WEBHOOK.strip(), json=message)
     if response.status_code == 200:
         print("✅ Brief posted to Slack successfully")
     else:
